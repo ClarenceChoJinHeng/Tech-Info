@@ -1,12 +1,10 @@
-[🏠 Home](../README.md) › [Tech Stack](README.md) › **Mobile Stack Alternative**
-
 # Mobile Stack Alternative: Flutter
 
-> The **alternative** mobile stack, for apps whose value is in their visuals and motion, or where the client mandates Flutter. **[React Native](Mobile-Stack.md) stays the default.**
-> **How to write code with it day to day:** [Coding Standards → Flutter](../Coding-Standards/Mobile-Flutter.md).
+> The **alternative** mobile stack, for apps whose value is in their visuals and motion, or where the client mandates Flutter. **[React Native](/Tech-Stack/Mobile-Stack) stays the default.**
+> **How to write code with it day to day:** [Coding Standards → Flutter](/Coding-Standards/Mobile-Flutter).
 
 > ⚠️ **Not battle-tested yet.** We haven't shipped a Flutter project. Treat this page as a well-researched starting point that the first Flutter project should confirm and correct.
-> Use it only when the **[Which Stack?](Mobile-Stack.md#which-stack)** chart on the Mobile Stack page points here. Otherwise, use React Native.
+> Use it only when the **[Which Stack?](/Tech-Stack/Mobile-Stack)** chart on the Mobile Stack page points here. Otherwise, use React Native.
 
 ---
 
@@ -56,14 +54,14 @@ MaterialApp(
 Container(color: Theme.of(context).colorScheme.primary)
 ```
 
-> 📘 **Coding standard:** widgets, `build()`, `const` constructors, and splitting widgets, with examples, are in Coding Standards → Flutter → [Build runs constantly](../Coding-Standards/Mobile-Flutter.md#build-runs-constantly) and [Split widgets into widgets](../Coding-Standards/Mobile-Flutter.md#split-widgets-into-widgets-not-methods).
+> 📘 **Coding standard:** widgets, `build()`, `const` constructors, and splitting widgets, with examples, are in [Coding Standards → Flutter → Build runs constantly](/Coding-Standards/Mobile-Flutter#build-runs-constantly) and [Split widgets into widgets](/Coding-Standards/Mobile-Flutter#split-widgets-into-widgets-not-methods).
 
 ### State
 **Riverpod**
 
 - Picking one state library and sticking to it matters more than which one. **[Riverpod](https://riverpod.dev/docs/introduction/why_riverpod)** catches mistakes when the code compiles rather than when it runs, can be tested without building any UI, and doesn't depend on `BuildContext`, which removes the runtime errors the older Provider package is prone to.
 - Use `riverpod_generator` (the `@riverpod` annotation), not hand-declared providers. It writes the boilerplate for you.
-- `AsyncNotifier` / `FutureProvider` handle server data with loading and error states, filling the same role as TanStack Query in the [React Native stack](Mobile-Stack.md).
+- `AsyncNotifier` / `FutureProvider` handle server data with loading and error states, filling the same role as TanStack Query in the [React Native stack](/Tech-Stack/Mobile-Stack).
 
 ```dart
 // invoice_provider.dart
@@ -90,7 +88,7 @@ return invoice.when(
 
 > 💡 **Tip:** Run `dart run build_runner watch` while you work, so the generated `.g.dart` files update as you save.
 
-> 📘 **Coding standard:** providers, `ref.watch` vs `ref.read`, and keeping logic out of widgets are in Coding Standards → Flutter → [Riverpod providers](../Coding-Standards/Mobile-Flutter.md#riverpod-providers) and [Keep logic out of widgets](../Coding-Standards/Mobile-Flutter.md#keep-logic-out-of-widgets).
+> 📘 **Coding standard:** providers, `ref.watch` vs `ref.read`, and keeping logic out of widgets are in [Coding Standards → Flutter → Riverpod providers](/Coding-Standards/Mobile-Flutter#riverpod-providers) and [Keep logic out of widgets](/Coding-Standards/Mobile-Flutter#keep-logic-out-of-widgets).
 
 ### HTTP Client
 **Dio**
@@ -173,16 +171,16 @@ await prefs.put('onboardingDone', true);
 - `flutter_lints` goes in `analysis_options.yaml`. `dart format` is built in and **can't be configured**, so there's nothing to debate about style.
 - A pre-commit hook (`lefthook`, the `husky` pub package, or a plain Git hook) runs `dart format`, `dart analyze`, and `flutter test`.
 
-> 📘 **Coding standard:** the `analysis_options.yaml` rules, the pre-commit commands, and null-safety rules are in Coding Standards → Flutter → [Linting and formatting](../Coding-Standards/Mobile-Flutter.md#linting-and-formatting) and [Null safety](../Coding-Standards/Mobile-Flutter.md#null-safety).
+> 📘 **Coding standard:** the `analysis_options.yaml` rules, the pre-commit commands, and null-safety rules are in [Coding Standards → Flutter → Linting and formatting](/Coding-Standards/Mobile-Flutter#linting-and-formatting) and [Null safety](/Coding-Standards/Mobile-Flutter#null-safety).
 
 ### Testing
 **`flutter_test`**
 
 - Built into the SDK: **unit** tests (plain Dart logic), **widget** tests (build one widget on its own and check what it shows), and **integration** tests (the whole app on a device).
-- Widget tests give the most value for the least effort, so **testing is a day-one expectation here**, unlike [React Native](Mobile-Stack.md).
+- Widget tests give the most value for the least effort, so **testing is a day-one expectation here**, unlike [React Native](/Tech-Stack/Mobile-Stack).
 - Riverpod lets a test swap any provider for a fake, so you can test logic without building the UI.
 
-> 📘 **Coding standard:** what to test at each layer, with an example widget test, is in Coding Standards → Flutter → [Testing](../Coding-Standards/Mobile-Flutter.md#testing).
+> 📘 **Coding standard:** what to test at each layer, with an example widget test, is in [Coding Standards → Flutter → Testing](/Coding-Standards/Mobile-Flutter#testing).
 
 ---
 
@@ -206,7 +204,3 @@ For a new project starting from this standard, set these up on day one:
 
 - [ ] **`flutter_lints`** in `analysis_options.yaml`, `dart format` on commit
 - [ ] **Widget tests** for shared components from the first sprint
-
----
-
-[⬅ Back to Tech Stack](README.md)

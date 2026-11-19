@@ -1,8 +1,7 @@
-[🏠 Home](../README.md) › [Database Standards](README.md) › **Schema Design**
+Schema Design
+=============
 
-# Schema Design
-
-> Read **[General Principles](General-Principles.md)** first. This page is the detail behind its naming, time, money and constraint rules.
+> Read **[General Principles](/Database-Standards/General-Principles)** first. This page is the detail behind its naming, time, money and constraint rules.
 > Examples are PostgreSQL. Where SQL Server or MySQL differ, the section says so.
 
 * * *
@@ -71,7 +70,7 @@ When the ORM generates the names (Prisma's `invoices_customer_id_fkey`, EF Core'
 | .NET with EF Core, especially on SQL Server | **PascalCase** is acceptable (`Invoices`, `CustomerId`), matching EF Core's defaults |
 | An existing project | **Whatever it already uses**, for every new table too |
 
-Why snake_case on Postgres: unquoted names fold to lowercase, so a PascalCase table needs `"Invoice"`, quoted, in every raw query. See [General Principles → One naming convention per database](General-Principles.md#one-naming-convention-per-database).
+Why snake_case on Postgres: unquoted names fold to lowercase, so a PascalCase table needs `"Invoice"`, quoted, in every raw query. See [General Principles → One naming convention per database](/Database-Standards/General-Principles#one-naming-convention-per-database).
 
 ### Mapping names in the ORM
 
@@ -178,7 +177,7 @@ CREATE TABLE invoices (
 | Whole numbers | `integer`, `bigint` | `int`, `bigint` | `INT`, `BIGINT` | `smallint` rarely saves enough to be worth a future overflow. |
 | Money, exact decimals | `numeric(12,2)` | `decimal(12,2)` | `DECIMAL(12,2)` | Or `bigint` cents. Never float. |
 | Yes / no | `boolean` | `bit` | `BOOLEAN` (stored as `TINYINT(1)`) | `NOT NULL` with a default. A nullable boolean has three states. |
-| Moment in time | `timestamptz` | `datetimeoffset`, or `datetime2` always in UTC | `DATETIME` always in UTC | See [General Principles → Store time in UTC](General-Principles.md#store-time-in-utc). |
+| Moment in time | `timestamptz` | `datetimeoffset`, or `datetime2` always in UTC | `DATETIME` always in UTC | See [General Principles → Store time in UTC](/Database-Standards/General-Principles#store-time-in-utc). |
 | Calendar date | `date` | `date` | `DATE` | Birthdays, due dates, holidays. |
 | Duration | `interval` | `int` seconds | `INT` seconds | |
 | UUID | `uuid` | `uniqueidentifier` | `BINARY(16)` | See [Primary keys](#ids-that-leave-the-system). |
@@ -238,7 +237,7 @@ phone text NULL
 | SQL Server | **Only one NULL allowed.** For "unique when present", use a filtered unique index (`WHERE col IS NOT NULL`). |
 | MySQL | Allowed. |
 
-NULL in `WHERE`, `NOT IN` and comparisons: [Writing Queries](Writing-Queries.md).
+NULL in `WHERE`, `NOT IN` and comparisons: [Writing Queries](/Database-Standards/Writing-Queries).
 
 * * *
 
@@ -399,7 +398,7 @@ A default only applies on insert, so something has to set `updated_at` on every 
 | EF Core `SaveChanges` override or interceptor | Updates through that `DbContext` | Dapper and raw SQL |
 | A Postgres trigger | **Every** update, from anywhere | Nothing |
 
-When more than one thing writes to the table (EF Core plus Dapper, scripts, console fixes), use the trigger. When triggers are and aren't a good idea: [Logic in the Database](Logic-in-the-Database.md).
+When more than one thing writes to the table (EF Core plus Dapper, scripts, console fixes), use the trigger. When triggers are and aren't a good idea: [Logic in the Database](/Database-Standards/Logic-in-the-Database).
 
 ```sql
 CREATE FUNCTION set_updated_at() RETURNS trigger
@@ -503,11 +502,7 @@ Each row links to the section with its full example.
 
 ## Related pages
 
-- [General Principles](General-Principles.md) — the rules this page expands on.
-- [Indexing](Indexing.md) — which indexes to add beyond primary and foreign keys.
-- [Migrations and Schema Changes](Migrations-and-Schema-Changes.md) — how to change any of this on a live table.
-- [PostgreSQL](PostgreSQL.md) — JSONB, arrays, enums and extensions in more depth.
-
----
-
-[⬅ Back to Database Standards](README.md)
+- [General Principles](/Database-Standards/General-Principles) — the rules this page expands on.
+- [Indexing](/Database-Standards/Indexing) — which indexes to add beyond primary and foreign keys.
+- [Migrations and Schema Changes](/Database-Standards/Migrations-and-Schema-Changes) — how to change any of this on a live table.
+- [PostgreSQL](/Database-Standards/PostgreSQL) — JSONB, arrays, enums and extensions in more depth.

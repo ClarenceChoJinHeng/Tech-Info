@@ -1,9 +1,8 @@
-[🏠 Home](../README.md) › [Coding Standards](README.md) › **Backend — NestJS**
+Backend — NestJS
+================
 
-# Backend — NestJS
-
-> Read **[General Principles](General-Principles.md)** first — this page only covers what's specific to our NestJS stack.
-> **Which tools we use, why, and how to set them up:** [Tech Stack → Backend Stack](../Tech-Stack/Backend-Stack.md). This page is how to write code with them day to day.
+> Read **[General Principles](/Coding-Standards/General-Principles)** first — this page only covers what's specific to our NestJS stack.
+> **Which tools we use, why, and how to set them up:** [Tech Stack → Backend Stack](/Tech-Stack/Backend-Stack). This page is how to write code with them day to day.
 
 * * *
 
@@ -129,7 +128,7 @@ create(@Body() body: CreateInvoiceDto) {
 
 ## Validate at the boundary
 
-Every request body is typed as a Zod DTO. The global validation pipe checks it before your controller runs, so the service can trust what it receives. How the schema and pipe are set up is in [Tech Stack → Validation](../Tech-Stack/Backend-Stack.md#validation).
+Every request body is typed as a Zod DTO. The global validation pipe checks it before your controller runs, so the service can trust what it receives. How the schema and pipe are set up is in [Tech Stack → Validation](/Tech-Stack/Backend-Stack#validation).
 
 ```ts
 // ✅ typed as the DTO: a missing title is a 400 before create() is called
@@ -149,7 +148,7 @@ create(@Body() body: any) {
 
 ## Database changes
 
-**Every schema change is a migration.** Edit `schema.prisma`, run `prisma migrate dev`, and commit the migration file with your code. Other environments apply it with `prisma migrate deploy`. The full workflow is in [Tech Stack → Database and ORM](../Tech-Stack/Backend-Stack.md#database-and-orm).
+**Every schema change is a migration.** Edit `schema.prisma`, run `prisma migrate dev`, and commit the migration file with your code. Other environments apply it with `prisma migrate deploy`. The full workflow is in [Tech Stack → Database and ORM](/Tech-Stack/Backend-Stack#database-and-orm).
 
 ```bash
 # ✅ creates a migration file that every environment will apply in the same order
@@ -198,7 +197,7 @@ return res.status(404).json({ msg: 'not found' });
 
 ## Logging
 
-Log with the injected Pino logger, pass data as fields, and never log secrets. Setup, including redaction, is in [Tech Stack → Logging](../Tech-Stack/Backend-Stack.md#logging).
+Log with the injected Pino logger, pass data as fields, and never log secrets. Setup, including redaction, is in [Tech Stack → Logging](/Tech-Stack/Backend-Stack#logging).
 
 ```ts
 // ✅ structured: searchable by invoiceId, and the request ID is added automatically
@@ -214,7 +213,7 @@ console.log('login attempt', email, password);
 
 ## Config
 
-Read environment variables through `ConfigService`, never `process.env` directly. The `envSchema` validates every variable at boot, so a missing one stops the app on startup instead of failing later. Setup is in [Tech Stack → Config and Secrets](../Tech-Stack/Backend-Stack.md#config-and-secrets).
+Read environment variables through `ConfigService`, never `process.env` directly. The `envSchema` validates every variable at boot, so a missing one stops the app on startup instead of failing later. Setup is in [Tech Stack → Config and Secrets](/Tech-Stack/Backend-Stack#config-and-secrets).
 
 ```ts
 // ✅ validated at boot, and fails loudly by name if missing
@@ -253,7 +252,7 @@ pnpm add -D prettier eslint eslint-config-prettier \
   @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
-- `package.json` already has `"lint"` and `"format"` scripts from the Nest CLI — extend the ESLint config rather than replacing it. Bring the `.prettierrc` values over from the [Frontend page](Frontend-React-TypeScript.md#linting-and-formatting) (`singleQuote`, `trailingComma: "all"`) so API and frontend code read the same way when a PR touches both.
+- `package.json` already has `"lint"` and `"format"` scripts from the Nest CLI — extend the ESLint config rather than replacing it. Bring the `.prettierrc` values over from the [Frontend page](/Coding-Standards/Frontend-React-TypeScript#linting-and-formatting) (`singleQuote`, `trailingComma: "all"`) so API and frontend code read the same way when a PR touches both.
 - Pre-commit: `husky` + `lint-staged` on staged files. `prisma format` runs whenever the schema changes, and the typecheck runs on the **whole project**, because changing one file can break another:
 
 ```js
@@ -307,7 +306,3 @@ Test what the caller sees (status codes, response bodies, rows in the database),
 - [NestJS Modular Architecture: Project Structure Guide](https://www.capitalcompute.com/building-a-modular-and-maintainable-backend-with-nestjs-a-practical-guide/)
 - [Prisma ORM — Best Practices (official docs)](https://www.prisma.io/docs/orm/v7/more/best-practices)
 - [12 REST API Best Practices That Hold Up in 2026](https://www.moesif.com/blog/technical/api-development/essential-REST-API-best-practices/)
-
----
-
-[⬅ Back to Coding Standards](README.md)

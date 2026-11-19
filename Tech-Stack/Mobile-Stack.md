@@ -1,9 +1,7 @@
-[🏠 Home](../README.md) › [Tech Stack](README.md) › **Mobile Stack**
+# Mobile Development Standard
 
-# Mobile Stack
-
-> The default stack for every new mobile project: **React Native with Expo**. Flutter is the approved alternative for one specific kind of project, covered in [Mobile Stack Alternative](Mobile-Stack-Alternative.md).
-> **How to write code with it day to day:** [Coding Standards → React Native](../Coding-Standards/Mobile-React-Native.md).
+> The default stack for every new mobile project: **React Native with Expo**. Flutter is the approved alternative for one specific kind of project, covered in [Mobile Stack Alternative](/Tech-Stack/Mobile-Stack-Alternative).
+> **How to write code with it day to day:** [Coding Standards → React Native](/Coding-Standards/Mobile-React-Native).
 
 ---
 
@@ -24,7 +22,7 @@ flowchart LR
 | **Why** | Same language (TypeScript) and mental model (components, hooks, Zustand, TanStack Query, Tailwind) as our web stack, so web devs are productive fast | Draws every pixel itself, so complex animation and pixel-exact design are much easier to get smooth |
 | **Trade-off** | Heavy custom animation is possible but more work | Dart is a separate ecosystem. Nothing transfers to or from the web team |
 | **Pick when** | Nothing pushes you to Flutter. It's the default, so no justification is needed | The client mandates it, or the visuals *are* the product |
-| **Standard** | This page | [Mobile Stack Alternative](Mobile-Stack-Alternative.md) |
+| **Standard** | This page | [Mobile Stack Alternative](/Tech-Stack/Mobile-Stack-Alternative) |
 
 > 📝 Both stacks are cross-platform (one codebase for iOS and Android). The choice is about which ecosystem you'll live in **for the life of the project**. You make it once, at the start.
 
@@ -90,7 +88,7 @@ flowchart LR
     Z -- persist --> AS[AsyncStorage<br>prefs, cache]
 ```
 
-> 📘 **Coding standard:** the full folder structure (what goes in `app/`, `screens/`, `components/`, `hooks/`, `api/`…) and why it's organized that way are in Coding Standards → React Native → [Folder structure](../Coding-Standards/Mobile-React-Native.md#folder-structure).
+> 📘 **Coding standard:** the full folder structure (what goes in `app/`, `screens/`, `components/`, `hooks/`, `api/`…) and why it's organized that way are in [Coding Standards → React Native → Folder structure](/Coding-Standards/Mobile-React-Native#folder-structure).
 
 ---
 
@@ -146,7 +144,7 @@ flowchart LR
 > import { Button } from '@/components/ui/Button'
 > ```
 
-> 📘 **Coding standard:** what makes mobile code different from web code (two threads, weaker devices, denied permissions) is in Coding Standards → React Native → [What makes mobile different](../Coding-Standards/Mobile-React-Native.md#what-makes-mobile-different).
+> 📘 **Coding standard:** what makes mobile code different from web code (two threads, weaker devices, denied permissions) is in [Coding Standards → React Native → What makes mobile different](/Coding-Standards/Mobile-React-Native#what-makes-mobile-different).
 
 ### Package Manager
 **Yarn** (a deliberate exception to our pnpm rule)
@@ -199,7 +197,7 @@ router.push(`/appraisal/${id}`)                 // in code, e.g. after a save
 
 > 💡 **Tip:** Keep route files **thin**: read the params, then render a screen component from `src/screens/`. Logic in a route file can't be reused or tested.
 
-> 📘 **Coding standard:** a full thin-route example, and route groups, are in Coding Standards → React Native → [Route file and screen component](../Coding-Standards/Mobile-React-Native.md#route-file-and-screen-component).
+> 📘 **Coding standard:** a full thin-route example, and route groups, are in [Coding Standards → React Native → Route file and screen component](/Coding-Standards/Mobile-React-Native#route-file-and-screen-component).
 
 ### Styling
 **NativeWind**
@@ -255,7 +253,7 @@ module.exports = withNativeWind(getDefaultConfig(__dirname), { input: './global.
 
 **Why the split matters even more on a phone:** phones lose signal, and the OS can pause or kill the app in the background. TanStack Query keeps showing the last data it fetched while offline, and refetches when the app comes back. Zustand holds what the user was doing, and its `persist` option saves that to the phone so it survives a restart (see [Storage](#storage) for where it's saved).
 
-> 📘 **Coding standard:** the state rules, the shared query-key factory, paging long lists with `useInfiniteQuery` + `FlatList`, and how the API layer and query hooks fit together are in Coding Standards → React Native → [State follows the web rules](../Coding-Standards/Mobile-React-Native.md#state-follows-the-web-rules) and [Long lists use FlatList](../Coding-Standards/Mobile-React-Native.md#long-lists-use-flatlist).
+> 📘 **Coding standard:** the state rules, the shared query-key factory, paging long lists with `useInfiniteQuery` + `FlatList`, and how the API layer and query hooks fit together are in [Coding Standards → React Native → State follows the web rules](/Coding-Standards/Mobile-React-Native#state-follows-the-web-rules) and [Long lists use FlatList](/Coding-Standards/Mobile-React-Native#long-lists-use-flatlist).
 
 ### Forms and Validation
 **React Hook Form + Zod**
@@ -284,7 +282,7 @@ module.exports = withNativeWind(getDefaultConfig(__dirname), { input: './global.
 > </KeyboardAwareScrollView>
 > ```
 
-> 📘 **Coding standard:** the full schema-first pattern is on Coding Standards → Frontend → [Schema first with Zod](../Coding-Standards/Frontend-React-TypeScript.md#schema-first-with-zod). It applies here unchanged.
+> 📘 **Coding standard:** the full schema-first pattern is on [Coding Standards → Frontend → Schema first with Zod](/Coding-Standards/Frontend-React-TypeScript#schema-first-with-zod). It applies here unchanged.
 
 ### HTTP Client
 **Axios** (instead of the web stack's ky)
@@ -331,7 +329,7 @@ apiClient.interceptors.response.use(
 
 > ⚠️ **Always set an explicit `timeout`.** Without one, a request on a weak signal can hang with a spinner forever.
 
-> 📘 **Coding standard:** how `src/api/` functions and `src/hooks/` query hooks use this instance is in Coding Standards → React Native → [Calling the API](../Coding-Standards/Mobile-React-Native.md#calling-the-api).
+> 📘 **Coding standard:** how `src/api/` functions and `src/hooks/` query hooks use this instance is in [Coding Standards → React Native → Calling the API](/Coding-Standards/Mobile-React-Native#calling-the-api).
 
 ### Storage
 **expo-secure-store + AsyncStorage** (split by sensitivity)
@@ -399,7 +397,7 @@ return (
 > - Reanimated's Babel plugin must be **last** in `babel.config.js` (see [Styling](#styling)). If animations silently don't run, check this first.
 > - Wrap the root `src/app/_layout.tsx` in `<GestureHandlerRootView style={{ flex: 1 }}>`. Gestures and bottom sheets need it.
 
-> 📘 **Coding standard:** why animated values are `useSharedValue` and not `useState` is in Coding Standards → React Native → [Reanimated worklets](../Coding-Standards/Mobile-React-Native.md#reanimated-worklets).
+> 📘 **Coding standard:** why animated values are `useSharedValue` and not `useState` is in [Coding Standards → React Native → Reanimated worklets](/Coding-Standards/Mobile-React-Native#reanimated-worklets).
 
 ### Native Modules
 **Expo SDK modules**
@@ -426,7 +424,7 @@ plugins: [
 > - Always handle the denied path with a clear message and a link to system settings
 > - Write every usage description in the app config (as above), or **both stores reject the build**
 
-> 📘 **Coding standard:** handling the denied path in code, with examples, is in Coding Standards → React Native → [Every native capability has a denied path](../Coding-Standards/Mobile-React-Native.md#every-native-capability-has-a-denied-path).
+> 📘 **Coding standard:** handling the denied path in code, with examples, is in [Coding Standards → React Native → Every native capability has a denied path](/Coding-Standards/Mobile-React-Native#every-native-capability-has-a-denied-path).
 
 ### Icons and Graphics
 **@expo/vector-icons + react-native-svg**
@@ -579,7 +577,7 @@ flowchart LR
 
 > 📝 **Testing isn't standard yet for mobile.** If a project invests in it, use Jest + `jest-expo` + React Native Testing Library for unit and component tests, and **Maestro** for E2E on a device or emulator. It's a per-project decision for now, not a day-one requirement.
 
-> 📘 **Coding standard:** the ESLint, Prettier, and lint-staged config files, and testing guidance, are in Coding Standards → React Native → [Linting and formatting](../Coding-Standards/Mobile-React-Native.md#linting-and-formatting) and [Testing](../Coding-Standards/Mobile-React-Native.md#testing).
+> 📘 **Coding standard:** the ESLint, Prettier, and lint-staged config files, and testing guidance, are in [Coding Standards → React Native → Linting and formatting](/Coding-Standards/Mobile-React-Native#linting-and-formatting) and [Testing](/Coding-Standards/Mobile-React-Native#testing).
 
 ---
 
@@ -614,7 +612,3 @@ For a new project starting from this standard, set these up on day one:
 - [ ] **`eas.json`** with `development` / `preview` / `production`
 - [ ] **ESLint** (`eslint-config-expo` + typescript-eslint) + **Prettier**
 - [ ] **Husky + lint-staged**, running format, lint, and `tsc --noEmit` on every commit
-
----
-
-[⬅ Back to Tech Stack](README.md)

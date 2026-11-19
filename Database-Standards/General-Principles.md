@@ -1,9 +1,8 @@
-[🏠 Home](../README.md) › [Database Standards](README.md) › **General Principles**
+General Principles
+==================
 
-# General Principles
-
-> Applies to every database we use. Engine-specific rules live on the [PostgreSQL](PostgreSQL.md), [SQL Server](SQL-Server.md), [MySQL](MySQL.md), [MongoDB](MongoDB.md) and [Redis](Redis.md) pages.
-> **Which ORM each stack uses, and how it's set up:** [Tech Stack → Backend Stack](../Tech-Stack/Backend-Stack.md#database-and-orm). This page is how to work with the database day to day.
+> Applies to every database we use. Engine-specific rules live on the [PostgreSQL](/Database-Standards/PostgreSQL), [SQL Server](/Database-Standards/SQL-Server), [MySQL](/Database-Standards/MySQL), [MongoDB](/Database-Standards/MongoDB) and [Redis](/Database-Standards/Redis) pages.
+> **Which ORM each stack uses, and how it's set up:** [Tech Stack → Backend Stack](/Tech-Stack/Backend-Stack#database-and-orm). This page is how to work with the database day to day.
 
 * * *
 
@@ -42,11 +41,11 @@ A group of statements that either **all** happen or **none** do. If anything fai
 
 ### Index
 
-A separate, sorted structure that lets the database find rows without reading the whole table, like the index at the back of a book. Faster reads, but every write has to update it too. See [Indexing](Indexing.md).
+A separate, sorted structure that lets the database find rows without reading the whole table, like the index at the back of a book. Faster reads, but every write has to update it too. See [Indexing](/Database-Standards/Indexing).
 
 ### Query plan
 
-The database's step-by-step recipe for running your query: which index to use, which table to read first, how to join them. `EXPLAIN` shows it to you. It's the first thing to look at when a query is slow. See [Performance and Diagnostics](Performance-and-Diagnostics.md).
+The database's step-by-step recipe for running your query: which index to use, which table to read first, how to join them. `EXPLAIN` shows it to you. It's the first thing to look at when a query is slow. See [Performance and Diagnostics](/Database-Standards/Performance-and-Diagnostics).
 
 ### Migration
 
@@ -54,7 +53,7 @@ A file, committed with your code, that changes the schema: add a table, add a co
 
 ### N+1 queries
 
-Loading a list with one query, then running one more query **per item** to fetch something related. 50 invoices become 51 queries. It's the most common performance bug an ORM makes easy. See [Writing Queries](Writing-Queries.md).
+Loading a list with one query, then running one more query **per item** to fetch something related. 50 invoices become 51 queries. It's the most common performance bug an ORM makes easy. See [Writing Queries](/Database-Standards/Writing-Queries).
 
 * * *
 
@@ -67,9 +66,9 @@ Every new project uses **PostgreSQL** as its main database. Use something else o
 - the client or the spec requires a specific engine (common for FI clients on SQL Server), or
 - the project extends an existing system that already runs on another engine.
 
-Redis and MongoDB are not alternatives to Postgres. They sit **next to** it for specific jobs. The [Database Standards](README.md#which-database) landing page has the decision chart and what each engine is for.
+Redis and MongoDB are not alternatives to Postgres. They sit **next to** it for specific jobs. The [Database Standards](/Database-Standards#which-database) landing page has the decision chart and what each engine is for.
 
-> ⚠️ If the main database isn't Postgres, write down why in the project README. See How to Use This Wiki → *Document every exception* *(page coming later)*.
+> ⚠️ If the main database isn't Postgres, write down why in the project README. See [How to Use This Wiki → Document every exception](/How-to-Use-This-Wiki#document-every-exception).
 
 ### Constraints belong in the database
 
@@ -114,7 +113,7 @@ try {
 }
 ```
 
-> 💡 Name the columns and types in the schema the way you'd want to read them in a report a year from now. How to choose each type, key and constraint is in [Schema Design](Schema-Design.md).
+> 💡 Name the columns and types in the schema the way you'd want to read them in a report a year from now. How to choose each type, key and constraint is in [Schema Design](/Database-Standards/Schema-Design).
 
 ### One naming convention per database
 
@@ -133,7 +132,7 @@ We have projects in **snake_case** and projects in **PascalCase**, and both are 
 > ```
 > That's why snake_case is the default on Postgres. On a NestJS project, keep PascalCase models in Prisma and map them with `@@map("invoices")` / `@map("customer_id")`.
 
-The full naming rules (plural tables, key and index names, booleans) are in [Schema Design](Schema-Design.md).
+The full naming rules (plural tables, key and index names, booleans) are in [Schema Design](/Database-Standards/Schema-Design).
 
 ### Store time in UTC
 
@@ -197,9 +196,9 @@ WHERE  status = 'sent'
   AND  due_date < current_date;
 ```
 
-The same applies to reads. Load related data with the list instead of once per item: Prisma `include`, TypeORM `relations` or `leftJoinAndSelect`, Laravel `with()`, EF Core `Include()`. With Dapper you write the `JOIN` yourself, so there's no lazy loading to trip over, but a query inside a `foreach` is still N+1. See [Writing Queries](Writing-Queries.md) for N+1 in detail.
+The same applies to reads. Load related data with the list instead of once per item: Prisma `include`, TypeORM `relations` or `leftJoinAndSelect`, Laravel `with()`, EF Core `Include()`. With Dapper you write the `JOIN` yourself, so there's no lazy loading to trip over, but a query inside a `foreach` is still N+1. See [Writing Queries](/Database-Standards/Writing-Queries) for N+1 in detail.
 
-> 💡 If the number of rows is huge (hundreds of thousands or more), one statement can lock too much for too long. That's when you batch. See [Large Data and Bulk Operations](Large-Data-and-Bulk-Operations.md).
+> 💡 If the number of rows is huge (hundreds of thousands or more), one statement can lock too much for too long. That's when you batch. See [Large Data and Bulk Operations](/Database-Standards/Large-Data-and-Bulk-Operations).
 
 ### ORM or raw SQL
 
@@ -207,7 +206,7 @@ The same applies to reads. Load related data with the list instead of once per i
 
 | Stack | Tool | What it is | Where we use it |
 | --- | --- | --- | --- |
-| NestJS | **Prisma** | ORM. One `schema.prisma` file drives migrations and fully typed queries. | The default for new NestJS projects. See [Tech Stack → Backend Stack](../Tech-Stack/Backend-Stack.md#database-and-orm). |
+| NestJS | **Prisma** | ORM. One `schema.prisma` file drives migrations and fully typed queries. | The default for new NestJS projects. See [Tech Stack → Backend Stack](/Tech-Stack/Backend-Stack#database-and-orm). |
 | NestJS | **TypeORM** | ORM. Entity classes with decorators, plus a query builder. | Existing NestJS projects built on it. Keep using it there rather than mixing in Prisma. |
 | Laravel | **Eloquent** + Query Builder | ORM, with `DB::` for raw SQL. | Every Laravel project. |
 | .NET | **EF Core** | ORM. LINQ queries, change tracking, migrations. | Most writes and all schema migrations on .NET projects. |
@@ -292,7 +291,7 @@ const SORTABLE = { date: 'created_at', total: 'total', number: 'number' } as con
 const column = SORTABLE[query.sort as keyof typeof SORTABLE] ?? 'created_at';
 ```
 
-More on injection: Security → Secure Coding *(page coming later)*.
+More on injection: [Security → Secure Coding](/Security/Secure-Coding).
 
 * * *
 
@@ -312,7 +311,7 @@ Make every change to tables, columns, indexes or constraints in a migration file
 
 > 📝 On TypeORM projects, `typeorm` in the commands above is a `package.json` script pointing at `typeorm-ts-node-commonjs`, so the CLI can read the TypeScript data source. Read every generated migration before committing it. TypeORM sometimes drops and recreates a column where a rename was intended.
 
-Some changes that look harmless lock a big table for minutes: adding a `NOT NULL` column, changing a type, creating an index the normal way. [Migrations and Schema Changes](Migrations-and-Schema-Changes.md) shows how to make each of those safely on a live table.
+Some changes that look harmless lock a big table for minutes: adding a `NOT NULL` column, changing a type, creating an index the normal way. [Migrations and Schema Changes](/Database-Standards/Migrations-and-Schema-Changes) shows how to make each of those safely on a live table.
 
 ### Measure before you optimize
 
@@ -333,7 +332,7 @@ WHERE  customer_id = 42
 > ROLLBACK;
 > ```
 
-How to read the output and find the slowest queries on a running system: [Performance and Diagnostics](Performance-and-Diagnostics.md).
+How to read the output and find the slowest queries on a running system: [Performance and Diagnostics](/Database-Standards/Performance-and-Diagnostics).
 
 ### Keep transactions short
 
@@ -356,7 +355,7 @@ await prisma.$transaction([
 ]);
 ```
 
-Isolation levels, deadlocks, and how to stop two requests overwriting each other: [Transactions and Concurrency](Transactions-and-Concurrency.md).
+Isolation levels, deadlocks, and how to stop two requests overwriting each other: [Transactions and Concurrency](/Database-Standards/Transactions-and-Concurrency).
 
 ### Touching production by hand
 
@@ -397,7 +396,7 @@ Never copy a production dump onto a laptop or into a shared dev or staging datab
 - **Local and dev:** seed data and factories (Prisma seed, Laravel factories and seeders, EF Core `HasData` or a seed script).
 - **When you need realistic volume or a real bug's data:** an anonymized copy, with names, emails, phone numbers, addresses and payment details replaced. Agree it with the tech lead first.
 
-See Security *(page coming later)* for how staging and personal data are protected.
+See [Security](/Security) for how staging and personal data are protected.
 
 * * *
 
@@ -442,7 +441,7 @@ sqlfluff lint sql/            # report problems
 sqlfluff fix sql/             # fix what it can automatically
 ```
 
-- Run it in the same pre-commit hook as the rest of the project's linters. See [Coding Standards → Linting and formatting](../Coding-Standards/General-Principles.md#linting-and-formatting).
+- Run it in the same pre-commit hook as the rest of the project's linters. See [Coding Standards → Linting and formatting](/Coding-Standards/General-Principles#linting-and-formatting).
 - Add migrations generated by the ORM (Prisma's `migration.sql`, for example) to `.sqlfluffignore`. They're machine-written and never edited by hand.
 
 * * *
@@ -488,10 +487,6 @@ Each row links to the section with its full example.
 
 ## Related pages
 
-- [Schema Design](Schema-Design.md) — the detail behind naming, keys, types and constraints.
-- [Writing Queries](Writing-Queries.md) — the next page to read.
-- [Coding Standards → Backend — NestJS](../Coding-Standards/Backend-NestJS.md#database-changes), [Laravel](../Coding-Standards/Backend-Laravel-PHP.md), [.NET](../Coding-Standards/Backend-DotNet-CSharp.md) — where the database code sits in each stack.
-
----
-
-[⬅ Back to Database Standards](README.md)
+- [Schema Design](/Database-Standards/Schema-Design) — the detail behind naming, keys, types and constraints.
+- [Writing Queries](/Database-Standards/Writing-Queries) — the next page to read.
+- [Coding Standards → Backend — NestJS](/Coding-Standards/Backend-NestJS#database-changes), [Laravel](/Coding-Standards/Backend-Laravel-PHP), [.NET](/Coding-Standards/Backend-DotNet-CSharp) — where the database code sits in each stack.

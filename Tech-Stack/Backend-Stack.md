@@ -1,10 +1,8 @@
-[🏠 Home](../README.md) › [Tech Stack](README.md) › **Backend Stack**
-
-# Backend Stack
+# Backend Development Standard
 
 > The default stack for every new backend project, built on [NestJS](https://docs.nestjs.com/).
 > **Scope:** how a service is built, structured, and run locally. CI/CD, registries, and deploy targets are project-specific and not covered here.
-> **How to write code with it day to day:** [Coding Standards → NestJS](../Coding-Standards/Backend-NestJS.md).
+> **How to write code with it day to day:** [Coding Standards → NestJS](/Coding-Standards/Backend-NestJS).
 
 ---
 
@@ -204,7 +202,7 @@ pnpm nest g resource modules/invoices
 > export class AppModule {}
 > ```
 
-> 📘 **Coding standard:** how modules talk to each other, dependency injection, and the "fat controller" smell, with examples, are in Coding Standards → NestJS → [One module per business domain](../Coding-Standards/Backend-NestJS.md#one-module-per-business-domain) and [Keep controllers thin](../Coding-Standards/Backend-NestJS.md#keep-controllers-thin).
+> 📘 **Coding standard:** how modules talk to each other, dependency injection, and the "fat controller" smell, with examples, are in [Coding Standards → NestJS → One module per business domain](/Coding-Standards/Backend-NestJS#one-module-per-business-domain) and [Keep controllers thin](/Coding-Standards/Backend-NestJS#keep-controllers-thin).
 
 ### Database and ORM
 **PostgreSQL + Prisma**
@@ -251,7 +249,7 @@ flowchart LR
 
 > ⚠️ Add `prisma format` to the pre-commit step (see [Code Quality](#code-quality)). It's easy to forget because the schema isn't a JS/TS file, but everyone reads that file constantly.
 
-> 📘 **Coding standard:** migration rules and when to use transactions are in Coding Standards → NestJS → [Database changes](../Coding-Standards/Backend-NestJS.md#database-changes).
+> 📘 **Coding standard:** migration rules and when to use transactions are in [Coding Standards → NestJS → Database changes](/Coding-Standards/Backend-NestJS#database-changes).
 
 ### API Style and Docs
 **REST + OpenAPI (Swagger)**
@@ -307,7 +305,7 @@ A request with a missing `title` never reaches `create()`. The client gets a `40
 
 > 📝 **Note:** Nest's docs default to `class-validator`, and it's a reasonable choice in general. We use Zod so that validation, config parsing, and DTO typing all use one library, the same one the frontend uses.
 
-> 📘 **Coding standard:** what a DTO is and why it's kept separate from the database model is in Coding Standards → NestJS → [DTO](../Coding-Standards/Backend-NestJS.md#dto), and the day-to-day rule is in [Validate at the boundary](../Coding-Standards/Backend-NestJS.md#validate-at-the-boundary).
+> 📘 **Coding standard:** what a DTO is and why it's kept separate from the database model is in [Coding Standards → NestJS → DTO](/Coding-Standards/Backend-NestJS#dto), and the day-to-day rule is in [Validate at the boundary](/Coding-Standards/Backend-NestJS#validate-at-the-boundary).
 
 ### Authentication
 **JWT via Passport**
@@ -428,7 +426,7 @@ this.logger.info({ invoiceId: invoice.id }, 'Invoice created')
 
 > 💡 **Tip:** The `transport` line above turns on `pino-pretty` only in development. You get readable, colored logs on your machine and raw JSON in production, from the same logger.
 
-> 📘 **Coding standard:** what a correlation ID is and what never to log are in Coding Standards → NestJS → [Logging](../Coding-Standards/Backend-NestJS.md#logging).
+> 📘 **Coding standard:** what a correlation ID is and what never to log are in [Coding Standards → NestJS → Logging](/Coding-Standards/Backend-NestJS#logging).
 
 ---
 
@@ -447,7 +445,7 @@ this.logger.info({ invoiceId: invoice.id }, 'Invoice created')
 
 > ⚠️ Run e2e tests against a **real PostgreSQL** (a docker-compose service or a throwaway database), **not a mocked Prisma**. A mock always agrees with the test, so it hides schema mismatches, broken joins, and migrations that drifted from the code.
 
-> 📘 **Coding standard:** example unit and e2e tests, and what each layer should cover, are in Coding Standards → NestJS → [Testing](../Coding-Standards/Backend-NestJS.md#testing).
+> 📘 **Coding standard:** example unit and e2e tests, and what each layer should cover, are in [Coding Standards → NestJS → Testing](/Coding-Standards/Backend-NestJS#testing).
 
 ### Code Quality
 **ESLint + Prettier + Husky/lint-staged**
@@ -477,7 +475,7 @@ flowchart LR
 
 > 📝 **Note:** Nest's dependency injection produces constructors that look "empty" and classes that only exist to carry decorators. Tune `no-useless-constructor` and similar rules for that pattern once in the shared config, instead of fighting them in every project.
 
-> 📘 **Coding standard:** the ESLint, Prettier, Husky, and lint-staged config files are in Coding Standards → NestJS → [Linting and formatting](../Coding-Standards/Backend-NestJS.md#linting-and-formatting).
+> 📘 **Coding standard:** the ESLint, Prettier, Husky, and lint-staged config files are in [Coding Standards → NestJS → Linting and formatting](/Coding-Standards/Backend-NestJS#linting-and-formatting).
 
 ---
 
@@ -557,7 +555,3 @@ For a new project starting from this standard, set these up on day one:
 **Local development**
 
 - [ ] A `Dockerfile` + `docker-compose.yml` (app + PostgreSQL) for local production-build checks
-
----
-
-[⬅ Back to Tech Stack](README.md)

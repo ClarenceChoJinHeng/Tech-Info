@@ -1,8 +1,7 @@
-[🏠 Home](../README.md) › [Coding Standards](README.md) › **General Principles**
+General Principles
+===================
 
-# General Principles
-
-> Applies to every language we use. Stack-specific rules live on the [Frontend](Frontend-React-TypeScript.md), [React Native](Mobile-React-Native.md), [Flutter](Mobile-Flutter.md), [NestJS](Backend-NestJS.md), [Laravel](Backend-Laravel-PHP.md), and [.NET](Backend-DotNet-CSharp.md) pages.
+> Applies to every language we use. Stack-specific rules live on the [Frontend](/Coding-Standards/Frontend-React-TypeScript), [React Native](/Coding-Standards/Mobile-React-Native), [Flutter](/Coding-Standards/Mobile-Flutter), [NestJS](/Coding-Standards/Backend-NestJS), [Laravel](/Coding-Standards/Backend-Laravel-PHP), and [.NET](/Coding-Standards/Backend-DotNet-CSharp) pages.
 
 * * *
 
@@ -408,12 +407,12 @@ Nobody has ever won a tabs-versus-spaces argument, so we don't have them. The fo
 
 | Stack | Formatter | Style baseline | Linter |
 | --- | --- | --- | --- |
-| [Frontend — React + TypeScript](Frontend-React-TypeScript.md) | Prettier | Prettier defaults, minus a couple of team calls (below) | ESLint `recommended` + `typescript-eslint recommended` |
-| [Mobile — React Native + Expo](Mobile-React-Native.md) | Prettier | Same as Frontend | `eslint-config-expo` |
-| [Mobile — Flutter + Dart](Mobile-Flutter.md) | `dart format` | [Effective Dart](https://dart.dev/effective-dart/style) — not configurable, which is the point | `flutter_lints` (official) |
-| [Backend — NestJS](Backend-NestJS.md) | Prettier | Same as Frontend | ESLint `recommended` + `typescript-eslint recommended` |
-| [Backend — Laravel (PHP)](Backend-Laravel-PHP.md) | Pint | `laravel` preset (PSR-12–based) | Larastan (PHPStan) |
-| [Backend — .NET / C#](Backend-DotNet-CSharp.md) | `dotnet format` | [Microsoft's C# conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions), via `.editorconfig` | Built-in Roslyn analyzers |
+| [Frontend — React + TypeScript](/Coding-Standards/Frontend-React-TypeScript) | Prettier | Prettier defaults, minus a couple of team calls (below) | ESLint `recommended` + `typescript-eslint recommended` |
+| [Mobile — React Native + Expo](/Coding-Standards/Mobile-React-Native) | Prettier | Same as Frontend | `eslint-config-expo` |
+| [Mobile — Flutter + Dart](/Coding-Standards/Mobile-Flutter) | `dart format` | [Effective Dart](https://dart.dev/effective-dart/style) — not configurable, which is the point | `flutter_lints` (official) |
+| [Backend — NestJS](/Coding-Standards/Backend-NestJS) | Prettier | Same as Frontend | ESLint `recommended` + `typescript-eslint recommended` |
+| [Backend — Laravel (PHP)](/Coding-Standards/Backend-Laravel-PHP) | Pint | `laravel` preset (PSR-12–based) | Larastan (PHPStan) |
+| [Backend — .NET / C#](/Coding-Standards/Backend-DotNet-CSharp) | `dotnet format` | [Microsoft's C# conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions), via `.editorconfig` | Built-in Roslyn analyzers |
 
 Default to the tool's own official preset (`flutter_lints`, the `laravel` Pint preset, Microsoft's conventions, Prettier's defaults) rather than a third-party style guide like Airbnb's. The maintained default gets updated with the language; a style guide frozen from whenever someone adopted it doesn't. Deviate only for a specific, agreed reason — and once you do, write it in the config file's own comments, not somewhere it'll get separated from the setting it explains.
 
@@ -471,7 +470,7 @@ Every package you add is code you're responsible for but didn't write. Most of t
 
 Before adding one, the honest version of the checklist:
 
-- **Is it in the [Tech Stack](../Tech-Stack/README.md) already?** Use that. A second HTTP client or a second date library in one project is how a codebase ends up with two ways to do everything.
+- **Is it in the [Tech Stack](/Tech-Stack) already?** Use that. A second HTTP client or a second date library in one project is how a codebase ends up with two ways to do everything.
 - **Could this be 20 lines of our own code?** A one-function dependency is rarely worth a supply-chain risk and an upgrade obligation.
 - **Is it maintained?** Last release, open issues, whether it supports the current major version of your framework. An abandoned package is a migration you've scheduled for your future self. <sup>[6]</sup>
 - **What does it drag in?** A package with forty transitive dependencies is forty more things that can break, and on mobile and web it's bundle size the user pays for.
@@ -500,7 +499,3 @@ And keep the lockfile honest: one package manager per project, lockfile committe
     [https://dart.dev/effective-dart/style](https://dart.dev/effective-dart/style)
 6.  **OpenSSF — Concise Guide for Evaluating Open Source Software**
     [https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software](https://best.openssf.org/Concise-Guide-for-Evaluating-Open-Source-Software)
-
----
-
-[⬅ Back to Coding Standards](README.md)

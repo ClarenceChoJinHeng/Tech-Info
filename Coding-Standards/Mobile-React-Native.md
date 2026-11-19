@@ -1,9 +1,8 @@
-[🏠 Home](../README.md) › [Coding Standards](README.md) › **Mobile — React Native + Expo**
+Mobile — React Native + Expo
+============================
 
-# Mobile — React Native + Expo
-
-> Read **[General Principles](General-Principles.md)** first — this page only covers what's specific to our React Native stack. Much of the [Frontend — React + TypeScript](Frontend-React-TypeScript.md) page applies here too: same query keys, same Zod-first schemas, same server-vs-client state split. This page covers what's *different* because it's a phone.
-> **Which tools we use, why, and how to set them up:** [Tech Stack → Mobile Stack](../Tech-Stack/Mobile-Stack.md). This page is how to write code with them day to day.
+> Read **[General Principles](/Coding-Standards/General-Principles)** first — this page only covers what's specific to our React Native stack. Much of the [Frontend — React + TypeScript](/Coding-Standards/Frontend-React-TypeScript) page applies here too: same query keys, same Zod-first schemas, same server-vs-client state split. This page covers what's *different* because it's a phone.
+> **Which tools we use, why, and how to set them up:** [Tech Stack → Mobile Stack](/Tech-Stack/Mobile-Stack). This page is how to write code with them day to day.
 
 * * *
 
@@ -158,13 +157,13 @@ const AppraisalRow = memo(function AppraisalRow({ item, onSelect }: Props) {
 
 Use NativeWind's `className` rather than inline `style` objects — it compiles to a stable style reference at build time, so it doesn't have this problem in the first place.
 
-> 📝 Don't scatter `memo`/`useCallback` everywhere by reflex — that's the premature optimisation [General Principles → Keep it simple](General-Principles.md#keep-it-simple) warns about. Apply it to list rows and expensive subtrees, which is where it actually pays.
+> 📝 Don't scatter `memo`/`useCallback` everywhere by reflex — that's the premature optimisation [General Principles → Keep it simple](/Coding-Standards/General-Principles#keep-it-simple) warns about. Apply it to list rows and expensive subtrees, which is where it actually pays.
 
 * * *
 
 ## State follows the web rules
 
-Server data belongs to **TanStack Query**, UI state belongs to **Zustand** or local `useState`. The reasoning and the ❌/✅ examples are on the [Frontend page](Frontend-React-TypeScript.md#keep-server-data-out-of-stores) — they apply here unchanged.
+Server data belongs to **TanStack Query**, UI state belongs to **Zustand** or local `useState`. The reasoning and the ❌/✅ examples are on the [Frontend page](/Coding-Standards/Frontend-React-TypeScript#keep-server-data-out-of-stores) — they apply here unchanged.
 
 Three things mobile adds:
 
@@ -233,13 +232,13 @@ await AsyncStorage.setItem('recentSearches', JSON.stringify(searches));
 await AsyncStorage.setItem('accessToken', token);
 ```
 
-The same choice applies when a Zustand store is persisted: the session store uses the SecureStore adapter, everything else uses AsyncStorage. The adapter setup is in [Tech Stack → Storage](../Tech-Stack/Mobile-Stack.md#storage).
+The same choice applies when a Zustand store is persisted: the session store uses the SecureStore adapter, everything else uses AsyncStorage. The adapter setup is in [Tech Stack → Storage](/Tech-Stack/Mobile-Stack#storage).
 
 * * *
 
 ## Calling the API
 
-There is one shared Axios instance, `apiClient` in `src/lib/`. Its interceptors attach the token to every request and log the user out once when the session expires (a 401). Feature code always goes through it. How it's set up is in [Tech Stack → HTTP Client](../Tech-Stack/Mobile-Stack.md#http-client).
+There is one shared Axios instance, `apiClient` in `src/lib/`. Its interceptors attach the token to every request and log the user out once when the session expires (a 401). Feature code always goes through it. How it's set up is in [Tech Stack → HTTP Client](/Tech-Stack/Mobile-Stack#http-client).
 
 ```ts
 // ✅ src/api/appraisal.ts: token and 401 handling are already taken care of
@@ -352,7 +351,7 @@ extra: { API_BASE_URL: process.env.API_BASE_URL },
 extra: { STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY },
 ```
 
-The full config flow is in [Tech Stack → Configuration](../Tech-Stack/Mobile-Stack.md#configuration).
+The full config flow is in [Tech Stack → Configuration](/Tech-Stack/Mobile-Stack#configuration).
 
 * * *
 
@@ -420,13 +419,13 @@ Each row links to the section with its full example.
 
 ## Linting and formatting
 
-Same tools as the [Frontend page](Frontend-React-TypeScript.md#linting-and-formatting) — Prettier + ESLint — with one shortcut: Expo projects can bootstrap the config instead of assembling it by hand.
+Same tools as the [Frontend page](/Coding-Standards/Frontend-React-TypeScript#linting-and-formatting) — Prettier + ESLint — with one shortcut: Expo projects can bootstrap the config instead of assembling it by hand.
 
 ```bash
 npx expo lint
 ```
 
-This installs ESLint with `eslint-config-expo` already wired up and adds a `lint` script to `package.json`. Add Prettier on top with the same [`.prettierrc` as the Frontend page](Frontend-React-TypeScript.md#linting-and-formatting) — one style across web and mobile means a developer moving between them isn't relearning quote and comma conventions.
+This installs ESLint with `eslint-config-expo` already wired up and adds a `lint` script to `package.json`. Add Prettier on top with the same [`.prettierrc` as the Frontend page](/Coding-Standards/Frontend-React-TypeScript#linting-and-formatting) — one style across web and mobile means a developer moving between them isn't relearning quote and comma conventions.
 
 Then put Prettier last in the ESLint config so the two never conflict:
 
@@ -455,7 +454,7 @@ module.exports = {
 
 ## Testing
 
-Automated testing isn't yet a day-one requirement on our mobile projects — see the note in the [Mobile Stack](../Tech-Stack/Mobile-Stack.md#code-quality). Where a project does invest:
+Automated testing isn't yet a day-one requirement on our mobile projects — see the note in the [Mobile Stack](/Tech-Stack/Mobile-Stack). Where a project does invest:
 
 - **Jest + `jest-expo` + React Native Testing Library** for units and components — assert on what the user sees (`getByText`, `getByRole`), not on internal state.
 - **Maestro** for a handful of critical flows on a real device or emulator (login, submit), not every screen.
@@ -480,7 +479,3 @@ test('adds thousands separators and the unit', () => {
 - [React Native — Performance overview](https://reactnative.dev/docs/performance)
 - [Optimizing FlatList configuration](https://reactnative.dev/docs/optimizing-flatlist-configuration)
 - [TanStack Query — React Native](https://tanstack.com/query/latest/docs/framework/react/react-native)
-
----
-
-[⬅ Back to Coding Standards](README.md)

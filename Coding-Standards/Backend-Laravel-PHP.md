@@ -1,8 +1,7 @@
-[🏠 Home](../README.md) › [Coding Standards](README.md) › **Backend — Laravel (PHP)**
+Backend — Laravel (PHP)
+=======================
 
-# Backend — Laravel (PHP)
-
-> Read **[General Principles](General-Principles.md)** first — this page only covers what's specific to Laravel. See also [Tech Stack](../Tech-Stack/README.md) for when we use Laravel vs. the other backends.
+> Read **[General Principles](/Coding-Standards/General-Principles)** first — this page only covers what's specific to Laravel. See also [Tech Stack](/Tech-Stack) for when we use Laravel vs. the other backends.
 
 * * *
 
@@ -239,7 +238,3 @@ it('rejects an invoice without a title', function () {
 - [19 Laravel Best Practices for Developers in 2026](https://buttercms.com/blog/laravel-best-practices/)
 - [Supercharge Your Laravel Codebase with PHPStan, Pest, Peck, Pint, and Rector](https://medium.com/appfoster/supercharge-your-laravel-codebase-with-phpstan-pest-peck-pint-and-rector-5b3615bfe21a)
 - [Testing Laravel with Pest — Spatie](https://spatie.be/courses/testing-laravel-with-pest)
-
----
-
-[⬅ Back to Coding Standards](README.md)

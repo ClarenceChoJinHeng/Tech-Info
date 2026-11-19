@@ -1,9 +1,8 @@
-[🏠 Home](../README.md) › [Coding Standards](README.md) › **Frontend — React + TypeScript**
+Frontend — React + TypeScript
+=============================
 
-# Frontend — React + TypeScript
-
-> Read **[General Principles](General-Principles.md)** first — this page only covers what's specific to our React/TypeScript stack.
-> **Which tools we use, why, and how to set them up:** [Tech Stack → Frontend Stack](../Tech-Stack/Frontend-Stack.md). This page is how to write code with them day to day.
+> Read **[General Principles](/Coding-Standards/General-Principles)** first — this page only covers what's specific to our React/TypeScript stack.
+> **Which tools we use, why, and how to set them up:** [Tech Stack → Frontend Stack](/Tech-Stack/Frontend-Stack). This page is how to write code with them day to day.
 
 * * *
 
@@ -180,7 +179,7 @@ const selectedId = useInvoiceStore((s) => s.selectedId);
 
 ## Calling the API
 
-There is one configured `ky` instance in `src/shared/api.ts`, holding the base URL, auth header and error handling. Feature code always imports it. How it's set up is in [Tech Stack → HTTP Client](../Tech-Stack/Frontend-Stack.md#http-client).
+There is one configured `ky` instance in `src/shared/api.ts`, holding the base URL, auth header and error handling. Feature code always imports it. How it's set up is in [Tech Stack → HTTP Client](/Tech-Stack/Frontend-Stack#http-client).
 
 ```ts
 // features/invoices/api/get-invoice.ts
@@ -267,7 +266,7 @@ Each row links to the section with its full example.
 
 ## Linting and formatting
 
-Prettier for formatting, ESLint for everything else. See [General Principles → Linting and formatting](General-Principles.md#linting-and-formatting) for why the split matters.
+Prettier for formatting, ESLint for everything else. See [General Principles → Linting and formatting](/Coding-Standards/General-Principles#linting-and-formatting) for why the split matters.
 
 ```bash
 pnpm add -D prettier eslint eslint-config-prettier \
@@ -372,7 +371,3 @@ export const Destructive: StoryObj<typeof meta> = { args: { children: 'Delete', 
 - [React + TypeScript Style Guide](https://react-typescript-style-guide.com/)
 - [React.js Best Practices in 2026](https://abisolutions.online/blog/react-best-practices-2026)
 - [Zustand & TanStack Query: Optimal State Management](https://arjun-dev.hashnode.dev/managing-state-the-right-way-zustand-for-client-state-and-tanstack-query-for-server-state)
-
----
-
-[⬅ Back to Coding Standards](README.md)

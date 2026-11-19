@@ -1,8 +1,7 @@
-[🏠 Home](../README.md) › [Coding Standards](README.md) › **Backend — .NET / C#**
+Backend — .NET / C#
+===================
 
-# Backend — .NET / C#
-
-> Read **[General Principles](General-Principles.md)** first — this page only covers what's specific to .NET. This is typically the stack for FI (bank/insurance) clients — see [Tech Stack](../Tech-Stack/README.md).
+> Read **[General Principles](/Coding-Standards/General-Principles)** first — this page only covers what's specific to .NET. This is typically the stack for FI (bank/insurance) clients — see [Tech Stack](/Tech-Stack).
 
 * * *
 
@@ -283,7 +282,3 @@ public void Total_is_the_sum_of_line_amounts()
 - [.NET Coding Conventions — C# (Microsoft Learn, official)](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
 - [Building a Clean ASP.NET Core API with EF Core and DDD](https://www.c-sharpcorner.com/article/building-a-clean-asp-net-core-api-with-c-sharp-13-ef-core-and-ddd/)
 - [Unit Testing Best Practices in .NET](https://milanjovanovic.tech/blog/unit-testing-best-practices-dotnet)
-
----
-
-[⬅ Back to Coding Standards](README.md)

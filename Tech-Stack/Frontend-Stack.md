@@ -1,9 +1,7 @@
-[🏠 Home](../README.md) › [Tech Stack](README.md) › **Frontend Stack**
-
-# Frontend Stack
+# Frontend Development Standard
 
 > The default stack for every new frontend project: a client-rendered React SPA built with Vite.
-> **This page:** what we use, why, and how to set it up. **How to write code with it day to day:** [Coding Standards → Frontend](../Coding-Standards/Frontend-React-TypeScript.md).
+> **This page:** what we use, why, and how to set it up. **How to write code with it day to day:** [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript).
 
 ---
 
@@ -70,7 +68,7 @@ type StatusBadgeProps = { status: 'open' | 'closed' }
 
 In plain JavaScript both mistakes run without complaint and render an empty badge. A user finds them in production. With TypeScript, every broken file is listed before you even save.
 
-> 📘 **Coding standard:** strict mode, and what to use instead of `any`, are in [Coding Standards → Frontend](../Coding-Standards/Frontend-React-TypeScript.md#do--dont) (Do / Don't).
+> 📘 **Coding standard:** strict mode, and what to use instead of `any`, are in [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript) (Do / Don't).
 
 **Vite** is the tool that runs the app while you work and packages it for release.
 
@@ -283,7 +281,7 @@ flowchart LR
 > <Button>Submit</Button> // uses bg-primary → reads --primary, so it changes everywhere at once
 > ```
 
-> 📘 **Coding standard:** using theme classes instead of hard-coded colors, and adding variants instead of copying components, are in [Coding Standards → Frontend](../Coding-Standards/Frontend-React-TypeScript.md#do--dont) (Do / Don't).
+> 📘 **Coding standard:** using theme classes instead of hard-coded colors, and adding variants instead of copying components, are in [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript) (Do / Don't).
 
 ### State
 **Zustand + TanStack Query**
@@ -297,14 +295,14 @@ Split state by **where it comes from**:
 
 **Why not put everything in one store?** Say you copy the case list from the API into a store. Another user edits a case, but your store keeps showing the old version until someone remembers to refetch. Meanwhile each screen refetches "just in case". TanStack Query tracks how old the data is, refetches when it goes stale, shares one copy between screens, and gives you loading and error states for free.
 
-> 📘 **Coding standard:** how to keep the two apart in code, with right and wrong examples, plus **query-key factories** (how to name cached data so refreshing after a save is reliable) are in Coding Standards → Frontend ([Server state vs. client state](../Coding-Standards/Frontend-React-TypeScript.md#keep-server-data-out-of-stores), [Query keys](../Coding-Standards/Frontend-React-TypeScript.md#query-key-factories)).
+> 📘 **Coding standard:** how to keep the two apart in code, with right and wrong examples, plus **query-key factories** (how to name cached data so refreshing after a save is reliable) are in [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript) (Server state vs. client state, Query keys).
 
 ### Forms and Validation
 **React Hook Form + Zod**
 
 Write each form's rules **once** in a [Zod](https://zod.dev/) schema. That schema drives both the error messages on screen and the TypeScript type of the form data, so the two can never disagree.
 
-> 📘 **Coding standard:** a full schema + form example is in [Coding Standards → Frontend → Schema-first with Zod](../Coding-Standards/Frontend-React-TypeScript.md#schema-first-with-zod).
+> 📘 **Coding standard:** a full schema + form example is in [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript) (Schema-first with Zod).
 
 > 📝 **Watching: [TanStack Form](https://tanstack.com/form/latest).** It isn't the standard yet. It works like TanStack Query, has stronger type inference, and handles async validation per field. It's worth evaluating for **deeply nested, dynamic forms** (multi-step wizards, repeatable field groups). For everything else, React Hook Form is more mature and the safer default.
 
@@ -358,7 +356,7 @@ const table = useReactTable({
 >
 > With `prefixUrl`, paths must **not** start with `/` (`'cases'`, not `'/cases'`).
 
-> 📘 **Coding standard:** where API calls live in a feature folder, and the rule against creating ky instances in feature code, are in Coding Standards → Frontend → [Calling the API](../Coding-Standards/Frontend-React-TypeScript.md#calling-the-api).
+> 📘 **Coding standard:** where API calls live in a feature folder, and the rule against creating ky instances in feature code, are in [Coding Standards → Frontend → Calling the API](/Coding-Standards/Frontend-React-TypeScript#calling-the-api).
 
 ### Rich Text and PDF
 **TipTap + pdfjs-dist**
@@ -409,7 +407,7 @@ return <EditorContent editor={editor} />
 > pnpm exec playwright codegen http://localhost:5173
 > ```
 
-> 📘 **Coding standard:** example unit and E2E tests, which flows deserve an E2E test, and how to mock the API are in [Coding Standards → Frontend → Testing](../Coding-Standards/Frontend-React-TypeScript.md#testing).
+> 📘 **Coding standard:** example unit and E2E tests, which flows deserve an E2E test, and how to mock the API are in [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript) (Testing).
 
 ### Code Quality
 **ESLint + Prettier + Husky/lint-staged**
@@ -436,7 +434,7 @@ flowchart LR
     T -->|any fail| X[Commit blocked ❌<br>fix and retry]
 ```
 
-> 📘 **Coding standard:** the ESLint, Prettier, Husky, and lint-staged config files, and our team formatting choices, are in [Coding Standards → Frontend → Linting & formatting](../Coding-Standards/Frontend-React-TypeScript.md#linting-and-formatting).
+> 📘 **Coding standard:** the ESLint, Prettier, Husky, and lint-staged config files, and our team formatting choices, are in [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript) (Linting & formatting).
 
 ### Component Development
 **Storybook**
@@ -445,7 +443,7 @@ flowchart LR
 - It doubles as **living documentation** of our shadcn/ui component set for designers and developers. This is where our future shared design system takes shape (see [Styling and UI](#styling-and-ui)).
 - It catches visual regressions at the component level, before they reach a page.
 
-> 📘 **Coding standard:** how to write a story, and where story files go, are in [Coding Standards → Frontend → Storybook stories](../Coding-Standards/Frontend-React-TypeScript.md#storybook-stories).
+> 📘 **Coding standard:** how to write a story, and where story files go, are in [Coding Standards → Frontend](/Coding-Standards/Frontend-React-TypeScript) (Storybook stories).
 
 ---
 
@@ -508,7 +506,3 @@ For a new project starting from this standard, set these up on day one:
 **Local development**
 
 - [ ] A `Dockerfile` + `compose.yml` for local production-build checks, with the nginx SPA fallback
-
----
-
-[⬅ Back to Tech Stack](README.md)

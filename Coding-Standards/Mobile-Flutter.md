@@ -1,11 +1,10 @@
-[🏠 Home](../README.md) › [Coding Standards](README.md) › **Mobile — Flutter + Dart**
+Mobile — Flutter + Dart
+=======================
 
-# Mobile — Flutter + Dart
+> Read **[General Principles](/Coding-Standards/General-Principles)** first — this page only covers what's specific to Flutter.
+> **Which tools we use, why, and how to set them up:** [Tech Stack → Mobile Stack Alternative](/Tech-Stack/Mobile-Stack-Alternative). This page is how to write code with them day to day.
 
-> Read **[General Principles](General-Principles.md)** first — this page only covers what's specific to Flutter.
-> **Which tools we use, why, and how to set them up:** [Tech Stack → Mobile Stack Alternative](../Tech-Stack/Mobile-Stack-Alternative.md). This page is how to write code with them day to day.
-
-> **Scope:** Flutter is the *alternative* mobile stack, used for UI-heavy and animation-heavy apps or where a client mandates it — see [Mobile Stack](../Tech-Stack/Mobile-Stack.md) for when to choose it. Default mobile projects follow [React Native](Mobile-React-Native.md). We have no shipped Flutter project yet, so treat this page as a well-sourced starting point the first project should confirm and correct — not as settled house style.
+> **Scope:** Flutter is the *alternative* mobile stack, used for UI-heavy and animation-heavy apps or where a client mandates it — see [Mobile Stack](/Tech-Stack/Mobile-Stack) for when to choose it. Default mobile projects follow [React Native](/Coding-Standards/Mobile-React-Native). We have no shipped Flutter project yet, so treat this page as a well-sourced starting point the first project should confirm and correct — not as settled house style.
 
 * * *
 
@@ -175,7 +174,7 @@ The underscore keeps the widget private to the file, so this costs nothing in AP
 
 ## Long lists use ListView builder
 
-Same rule as `FlatList` on the [React Native side](Mobile-React-Native.md#long-lists-use-flatlist), same reason.
+Same rule as `FlatList` on the [React Native side](/Coding-Standards/Mobile-React-Native#long-lists-use-flatlist), same reason.
 
 ```dart
 // ❌ Builds all 300 rows up front
@@ -209,7 +208,7 @@ A widget's job is to render state and forward events. Fetching, calculating and 
 
 ## Theme values
 
-Colours, text styles and component defaults are defined once in `ThemeData` (see [Tech Stack → UI Framework](../Tech-Stack/Mobile-Stack-Alternative.md#ui-framework)). Widgets read them from the theme, so dark mode and a client rebrand only need a change in one place.
+Colours, text styles and component defaults are defined once in `ThemeData` (see [Tech Stack → UI Framework](/Tech-Stack/Mobile-Stack-Alternative#ui-framework)). Widgets read them from the theme, so dark mode and a client rebrand only need a change in one place.
 
 ```dart
 // ✅ follows the theme, including dark mode
@@ -230,7 +229,7 @@ Container(
 
 ## Calling the API
 
-There is one configured `Dio` instance in `core/`, exposed through a provider. It holds the base URL, timeouts, and the interceptors that attach the token and handle a 401. Feature code always reads it from the provider. How it's set up is in [Tech Stack → HTTP Client](../Tech-Stack/Mobile-Stack-Alternative.md#http-client).
+There is one configured `Dio` instance in `core/`, exposed through a provider. It holds the base URL, timeouts, and the interceptors that attach the token and handle a 401. Feature code always reads it from the provider. How it's set up is in [Tech Stack → HTTP Client](/Tech-Stack/Mobile-Stack-Alternative#http-client).
 
 ```dart
 // ✅ features/invoices/providers/invoice_provider.dart: token and 401 handling already done
@@ -328,7 +327,7 @@ linter:
     prefer_const_literals_to_create_immutables: true
 ```
 
-- `dart format .` rewrites layout; it isn't configurable, and that's deliberate — see [General Principles → Linting and formatting](General-Principles.md#linting-and-formatting).
+- `dart format .` rewrites layout; it isn't configurable, and that's deliberate — see [General Principles → Linting and formatting](/Coding-Standards/General-Principles#linting-and-formatting).
 - `flutter analyze` runs the lints from `analysis_options.yaml`. `flutter_lints` is the official baseline; add rules on top rather than replacing it.
 - Pre-commit: a simple git hook running `dart format --output=none --set-exit-if-changed .` and `flutter analyze` is enough — Flutter's tooling doesn't need a staged-files runner like `lint-staged`.
 - CI: the same two commands as a merge gate. `--set-exit-if-changed` makes `dart format` fail the build instead of silently passing on unformatted code.
@@ -369,7 +368,3 @@ testWidgets('shows the invoice title', (tester) async {
 - [Effective Dart — Style, Documentation, Usage, Design](https://dart.dev/effective-dart)
 - [Flutter — Architecture guide](https://docs.flutter.dev/app-architecture)
 - [Riverpod — Essentials](https://riverpod.dev/docs/essentials/first_request)
-
----
-
-[⬅ Back to Coding Standards](README.md)
